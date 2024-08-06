@@ -1,9 +1,55 @@
 public class exercises {
     public static void main(String[] args) {
         //numberToWords(123321);
-        System.out.println(canPack(2,2,11));
+       printSquareStar(8);
     }
 
+    //Print a pattern of stars based on random rules
+    public static void printSquareStar(int number){
+        if(number<5){
+            System.out.println("Invalid Value");
+        }
+        else{
+            for(int i=1;i<=number;i++){
+                for(int j=1;j<=number;j++){
+                    if(i==1||i==number||j==1||j==number||i==j||j==(number-i+1)){
+                        System.out.print("*");
+                    } else{
+                        System.out.print(" ");
+                    }
+                }
+                System.out.println("");
+            }
+        }
+    }
+
+    //Get the largest primer number that divides a number
+    public static int getLargestPrime(int number){
+        int prime, max =number;
+        boolean iPrime = true;
+        if(number<2) return -1;
+        for(int i=2;i<number;i++){
+            for(int j=2;j<i;j++){
+                if(i%j==0){
+                    iPrime=false;
+                    break;
+                }
+            }
+            if(number%i==0&&iPrime){
+                max = i;
+            }
+            iPrime=true;
+        }
+        return max;
+    }
+
+    public static boolean isPrime(int number){
+        for(int i=2;i<number;i++){
+            if(number%i==0) return false;
+        } return true;
+    }
+
+    //Define if a request can be completed based on the parameters of the method
     public static boolean canPack(int bigCount, int smallCount, int goal){
         int cinKilos, oneKilo;
         if(bigCount<0||smallCount<0||goal<0) return false;
