@@ -1,8 +1,153 @@
 public class exercises {
     public static void main(String[] args) {
-        printFactors(-10);
+        //numberToWords(123321);
+        System.out.println(canPack(2,2,11));
     }
 
+    public static boolean canPack(int bigCount, int smallCount, int goal){
+        int cinKilos, oneKilo;
+        if(bigCount<0||smallCount<0||goal<0) return false;
+        int remainCinco = goal%5;
+        if(remainCinco==0){
+            cinKilos = (bigCount*5)-goal;
+            if(cinKilos>=0){
+                return true;
+            } else{
+                if(((bigCount*5)+smallCount)>=goal){
+                    return true;
+                } else return false;
+            }
+        }
+        else{
+            int tmp1 = smallCount-(goal%5);
+            if(tmp1 < 0){
+                return false;
+            } else {
+                int cincoNeed = goal/5;
+                if(bigCount>=cincoNeed){
+                    return true;
+                } else{
+                    int tmp3 = (bigCount*5)+smallCount;
+                    if(tmp3>=goal) return true;
+                    else return false;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+    //Get the quantity of digits in a number
+    public static int getDigitCount (int number){
+        int count = 0;
+        if(number<0) {
+            return -1;
+        }
+        if(number==0){
+            return 1;
+        }
+        while(number>0){
+            number=number/10;
+            count++;
+        }
+        return count;
+    }
+
+    // Return a number that is reversed
+    public static int reverse(int number){
+       boolean negative = number<0;
+       if(negative) number=number*-1;
+        int leng = getDigitCount(number), reve=0, tmp1=0,i=1;
+        while (number>0){
+            tmp1 = number%10;
+            number=number/10;
+            if(tmp1!=0){
+                reve = (int) (reve+(tmp1*Math.pow(10,leng-1)));
+            }
+            leng--;
+        }
+        if(negative) reve = reve*-1;
+        return reve;
+    }
+
+    //Convert a number to words
+    public static void numberToWords(int number){
+        if(number<0) {
+            System.out.println("Invalid Value");
+        } else {
+            int reversado = reverse(number);
+            int largo = getDigitCount(number);
+            for(int i=0;i<largo;i++){
+                int tmp1 = reversado%10;
+                reversado = reversado/10;
+                switch (tmp1){
+                    case 1:
+                        System.out.println("One");
+                        break;
+                    case 2:
+                        System.out.println("Two");
+                        break;
+                    case 3:
+                        System.out.println("Three");
+                        break;
+                    case 4:
+                        System.out.println("Four");
+                        break;
+                    case 5:
+                        System.out.println("Five");
+                        break;
+                    case 6:
+                        System.out.println("Six");
+                        break;
+                    case 7:
+                        System.out.println("Seven");
+                        break;
+                    case 8:
+                        System.out.println("Eight");
+                        break;
+                    case 9:
+                        System.out.println("Nine");
+                        break;
+                    default:
+                        System.out.println("Zero");
+                        break;
+                }
+            }
+        }
+    }
+
+
+    //Check if parameter is a perfect number
+    public static boolean isPerfectNumber(int number){
+        int i=1, perfect=0;
+        if(number<1) return false;
+        while(i<number){
+            if(number%i==0){
+                perfect=perfect+i;
+            }
+            i++;
+        }
+        return perfect==number;
+    }
+
+    //Get the maximum Common Divisor
+    public static int getGreatestCommonDivisor(int first, int second){
+        int divisor=0;
+        if(first<10||second<10) return -1;
+        for(int i=1;i<=first;i++){
+            if(first%i==0){
+                if(second%i==0){
+                    divisor=i;
+                }
+            }
+        } return divisor;
+    }
+
+    //TO define if a number can be divided by each number
     public static void printFactors(int number){
         if(number<1){
             System.out.println("Invalid Value");
